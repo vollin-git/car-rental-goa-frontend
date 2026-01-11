@@ -414,6 +414,7 @@ const CarDetails = () => {
               className="border border-borderColor px-3 py-2 rounded-lg outline-none focus:border-primary"
               required
               id="return-date"
+              min={pickupDate || new Date().toISOString().split("T")[0]}
             />
           </div>
 

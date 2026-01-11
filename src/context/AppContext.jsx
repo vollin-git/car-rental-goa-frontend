@@ -22,6 +22,13 @@ export const AppProvider = ({ children })=>{
     const [cars, setCars] = useState([])
     const [locations, setLocations] = useState([])
 
+    // Auto-reset return date if it's before the pickup date
+    useEffect(() => {
+        if (pickupDate && returnDate && returnDate < pickupDate) {
+            setReturnDate('');
+        }
+    }, [pickupDate, returnDate]);
+
     // Function to check if user is logged in
     const fetchUser = async ()=>{
         try {

@@ -133,6 +133,7 @@ const Hero = () => {
               value={returnDate}
               onChange={(e) => setReturnDate(e.target.value)}
               type="date"
+              min={pickupDate || new Date().toISOString().split("T")[0]}
               className="text-sm font-semibold text-gray-800 outline-none bg-transparent w-full"
               required
             />
