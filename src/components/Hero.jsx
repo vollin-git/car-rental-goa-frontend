@@ -224,14 +224,41 @@ const Hero = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-center mb-8 md:mb-12 max-w-3xl"
+            className="text-center mb-8 md:mb-12 max-w-4xl"
           >
-            <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-4 md:mb-6 italic drop-shadow-lg">
-              Skip the rental counter
+            <motion.span 
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="inline-block bg-white/10 backdrop-blur-sm text-white text-xs md:text-sm font-semibold px-4 py-1.5 rounded-full mb-4 md:mb-6 border border-white/20"
+            >
+              🚗 Goa's #1 Self-Drive Car Rental Platform
+            </motion.span>
+            
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white mb-4 md:mb-6 leading-tight drop-shadow-lg">
+              Your <span className="text-primary">Perfect Ride</span> Awaits in Goa
             </h1>
-            <p className="text-base md:text-xl text-white/90 font-medium px-4">
-              Rent cars from local hosts in <span className="text-primary font-bold bg-white/10 px-2 py-1 rounded">Goa</span> 🌴
+            
+            <p className="text-base md:text-xl text-white/80 font-medium px-4 max-w-2xl mx-auto leading-relaxed">
+              Explore Goa at your own pace with premium self-drive cars from verified local partners
             </p>
+
+            <div className="flex flex-wrap items-center justify-center gap-3 md:gap-6 mt-6 text-white/70 text-xs md:text-sm">
+              <span className="flex items-center gap-1.5">
+                <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                Instant Booking
+              </span>
+              <span className="hidden md:inline">•</span>
+              <span className="flex items-center gap-1.5">
+                <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                Transparent Pricing
+              </span>
+              <span className="hidden md:inline">•</span>
+              <span className="flex items-center gap-1.5">
+                <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                24×7 Support
+              </span>
+            </div>
           </motion.div>
 
           {/* Main Search Form Container */}
