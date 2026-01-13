@@ -226,14 +226,14 @@ const Hero = () => {
             transition={{ duration: 0.8 }}
             className="text-center mb-8 md:mb-12 max-w-4xl"
           >
-            <motion.span 
+            {/* <motion.span 
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
               className="inline-block bg-white/10 backdrop-blur-sm text-white text-xs md:text-sm font-semibold px-4 py-1.5 rounded-full mb-4 md:mb-6 border border-white/20"
             >
               🚗 Goa's #1 Self-Drive Car Rental Platform
-            </motion.span>
+            </motion.span> */}
             
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white mb-4 md:mb-6 leading-tight drop-shadow-lg">
               Your <span className="text-primary">Perfect Ride</span> Awaits in Goa

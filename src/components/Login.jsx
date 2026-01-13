@@ -2,21 +2,18 @@ import React, { useState, useEffect } from 'react'
 import { useAppContext } from '../context/AppContext';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
-import { Phone, Shield, User, Mail, Lock, ArrowRight, Loader2 } from 'lucide-react';
+import { Phone, Shield, ArrowRight, Loader2 } from 'lucide-react';
 
 const Login = () => {
 
     const {setShowLogin, axios, setToken, navigate} = useAppContext()
 
-    const [step, setStep] = useState('phone'); // phone, otp, register
+    const [step, setStep] = useState('phone'); // phone, otp
     const [isLogin, setIsLogin] = useState(true); // true = login, false = register
     
     // Form fields
     const [phone, setPhone] = useState("");
     const [otp, setOtp] = useState("");
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
     const [agreeTerms, setAgreeTerms] = useState(false);
     
     // Loading and countdown
@@ -109,37 +106,22 @@ const Login = () => {
         }
     };
 
-    // Verify OTP and move to register form
-    const handleVerifyOTPForRegister = async (e) => {
+    // Verify OTP and Register (phone only)
+    const handleVerifyOTPRegister = async (e) => {
         e.preventDefault();
         
         if (otp.length !== 6) {
             return toast.error('Please enter a valid 6-digit OTP');
         }
 
-        // For registration, first verify OTP is valid format, then show register form
-        setStep('register');
-    };
-
-    // Complete Registration
-    const handleRegister = async (e) => {
-        e.preventDefault();
-        
         if (!agreeTerms) {
             return toast.error('Please agree to terms and conditions');
-        }
-
-        if (password.length < 8) {
-            return toast.error('Password must be at least 8 characters');
         }
 
         setLoading(true);
         try {
             const { data } = await axios.post('/api/user/verify-otp-register', {
-                name,
-                email,
                 phone,
-                password,
                 otp
             });
             
@@ -184,9 +166,6 @@ const Login = () => {
     const resetForm = () => {
         setStep('phone');
         setOtp('');
-        setName('');
-        setEmail('');
-        setPassword('');
         setAgreeTerms(false);
     };
 
@@ -198,7 +177,7 @@ const Login = () => {
 
     return (
         <div onClick={() => setShowLogin(false)} className='fixed top-0 bottom-0 left-0 right-0 z-100 flex items-center text-sm text-gray-600 bg-black/50'>
-            <div onClick={(e) => e.stopPropagation()} className="flex flex-col gap-4 m-auto items-start p-8 py-10 w-80 sm:w-[380px] rounded-xl shadow-xl border border-gray-200 bg-white">
+            <div onClick={(e) => e.stopPropagation()} className="flex flex-col gap-4 m-auto items-start p-8 py-10 w-80 sm:w-95 rounded-xl shadow-xl border border-gray-200 bg-white">
                 
                 {/* Header */}
                 <div className="w-full text-center mb-2">
@@ -206,13 +185,11 @@ const Login = () => {
                         <span className="text-primary">
                             {step === 'phone' && (isLogin ? 'Login' : 'Sign Up')}
                             {step === 'otp' && 'Verify OTP'}
-                            {step === 'register' && 'Complete Registration'}
                         </span>
                     </p>
                     <p className="text-gray-400 text-sm mt-1">
                         {step === 'phone' && 'Enter your phone number to continue'}
                         {step === 'otp' && `Enter OTP sent to +91 ${phone}`}
-                        {step === 'register' && 'Fill in your details to create account'}
                     </p>
                 </div>
 
@@ -264,7 +241,7 @@ const Login = () => {
 
                 {/* OTP Step */}
                 {step === 'otp' && (
-                    <form onSubmit={isLogin ? handleVerifyOTPLogin : handleVerifyOTPForRegister} className="w-full space-y-4">
+                    <form onSubmit={isLogin ? handleVerifyOTPLogin : handleVerifyOTPRegister} className="w-full space-y-4">
                         <div className="w-full">
                             <label className="text-sm font-medium text-gray-700 mb-1 block">Enter OTP</label>
                             <div className="relative">
@@ -298,112 +275,42 @@ const Login = () => {
                             </button>
                         </div>
 
+                        {/* Terms checkbox for signup */}
+                        {!isLogin && (
+                            <div className="w-full">
+                                <label className="flex items-start gap-2 text-xs">
+                                    <input
+                                        type="checkbox"
+                                        checked={agreeTerms}
+                                        onChange={(e) => setAgreeTerms(e.target.checked)}
+                                        className="mt-0.5"
+                                    />
+                                    <span>
+                                        I agree to the{' '}
+                                        <Link to="/terms" onClick={() => setShowLogin(false)} className="text-primary underline">
+                                            Terms and Conditions
+                                        </Link>{' '}
+                                        and{' '}
+                                        <Link to="/privacy" onClick={() => setShowLogin(false)} className="text-primary underline">
+                                            Privacy Policy
+                                        </Link>
+                                    </span>
+                                </label>
+                            </div>
+                        )}
+
                         <button
                             type="submit"
-                            disabled={loading || otp.length !== 6}
+                            disabled={loading || otp.length !== 6 || (!isLogin && !agreeTerms)}
                             className="w-full py-2.5 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                         >
                             {loading ? (
                                 <Loader2 className="animate-spin" size={20} />
                             ) : (
                                 <>
-                                    {isLogin ? 'Login' : 'Verify & Continue'} <ArrowRight size={18} />
+                                    {isLogin ? 'Login' : 'Create Account'} <ArrowRight size={18} />
                                 </>
                             )}
-                        </button>
-                    </form>
-                )}
-
-                {/* Register Step */}
-                {step === 'register' && (
-                    <form onSubmit={handleRegister} className="w-full space-y-3">
-                        <div className="w-full">
-                            <label className="text-sm font-medium text-gray-700 mb-1 block">Full Name</label>
-                            <div className="relative">
-                                <User className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
-                                <input
-                                    type="text"
-                                    value={name}
-                                    onChange={(e) => setName(e.target.value)}
-                                    placeholder="Enter your name"
-                                    className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg outline-primary"
-                                    required
-                                />
-                            </div>
-                        </div>
-
-                        <div className="w-full">
-                            <label className="text-sm font-medium text-gray-700 mb-1 block">Email</label>
-                            <div className="relative">
-                                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
-                                <input
-                                    type="email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    placeholder="Enter your email"
-                                    className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg outline-primary"
-                                    required
-                                />
-                            </div>
-                        </div>
-
-                        <div className="w-full">
-                            <label className="text-sm font-medium text-gray-700 mb-1 block">Password</label>
-                            <div className="relative">
-                                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
-                                <input
-                                    type="password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    placeholder="Create a password"
-                                    className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg outline-primary"
-                                    required
-                                />
-                            </div>
-                            <p className="text-xs text-gray-400 mt-1">Password must be at least 8 characters</p>
-                        </div>
-
-                        <div className="w-full">
-                            <label className="flex items-start gap-2 text-xs">
-                                <input
-                                    type="checkbox"
-                                    checked={agreeTerms}
-                                    onChange={(e) => setAgreeTerms(e.target.checked)}
-                                    className="mt-0.5"
-                                />
-                                <span>
-                                    I agree to the{' '}
-                                    <Link to="/terms" onClick={() => setShowLogin(false)} className="text-primary underline">
-                                        Terms and Conditions
-                                    </Link>{' '}
-                                    and{' '}
-                                    <Link to="/privacy" onClick={() => setShowLogin(false)} className="text-primary underline">
-                                        Privacy Policy
-                                    </Link>
-                                </span>
-                            </label>
-                        </div>
-
-                        <button
-                            type="submit"
-                            disabled={loading || !agreeTerms}
-                            className="w-full py-2.5 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                        >
-                            {loading ? (
-                                <Loader2 className="animate-spin" size={20} />
-                            ) : (
-                                <>
-                                    Create Account <ArrowRight size={18} />
-                                </>
-                            )}
-                        </button>
-
-                        <button
-                            type="button"
-                            onClick={() => setStep('otp')}
-                            className="w-full text-sm text-gray-500 hover:text-primary"
-                        >
-                            ← Back to OTP
                         </button>
                     </form>
                 )}
