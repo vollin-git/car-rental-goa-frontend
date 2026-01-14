@@ -2,18 +2,19 @@ import React, { useState, useEffect } from 'react'
 import { useAppContext } from '../context/AppContext';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
-import { Phone, Shield, ArrowRight, Loader2 } from 'lucide-react';
+import { Phone, Shield, ArrowRight, Loader2, User } from 'lucide-react';
 
 const Login = () => {
 
     const {setShowLogin, axios, setToken, navigate} = useAppContext()
 
-    const [step, setStep] = useState('phone'); // phone, otp
+    const [step, setStep] = useState('phone'); // phone, otp, name (for signup)
     const [isLogin, setIsLogin] = useState(true); // true = login, false = register
     
     // Form fields
     const [phone, setPhone] = useState("");
     const [otp, setOtp] = useState("");
+    const [name, setName] = useState("");
     const [agreeTerms, setAgreeTerms] = useState(false);
     
     // Loading and countdown
@@ -106,7 +107,7 @@ const Login = () => {
         }
     };
 
-    // Verify OTP and Register (phone only)
+    // Verify OTP and move to name step for signup
     const handleVerifyOTPRegister = async (e) => {
         e.preventDefault();
         
@@ -118,11 +119,24 @@ const Login = () => {
             return toast.error('Please agree to terms and conditions');
         }
 
+        // Move to name step
+        setStep('name');
+    };
+
+    // Complete Registration with name
+    const handleCompleteRegistration = async (e) => {
+        e.preventDefault();
+        
+        if (!name.trim()) {
+            return toast.error('Please enter your name');
+        }
+
         setLoading(true);
         try {
             const { data } = await axios.post('/api/user/verify-otp-register', {
                 phone,
-                otp
+                otp,
+                name: name.trim()
             });
             
             if (data.success) {
@@ -166,6 +180,7 @@ const Login = () => {
     const resetForm = () => {
         setStep('phone');
         setOtp('');
+        setName('');
         setAgreeTerms(false);
     };
 
@@ -185,11 +200,13 @@ const Login = () => {
                         <span className="text-primary">
                             {step === 'phone' && (isLogin ? 'Login' : 'Sign Up')}
                             {step === 'otp' && 'Verify OTP'}
+                            {step === 'name' && 'Complete Profile'}
                         </span>
                     </p>
                     <p className="text-gray-400 text-sm mt-1">
                         {step === 'phone' && 'Enter your phone number to continue'}
                         {step === 'otp' && `Enter OTP sent to +91 ${phone}`}
+                        {step === 'name' && 'Enter your name to complete signup'}
                     </p>
                 </div>
 
@@ -308,9 +325,53 @@ const Login = () => {
                                 <Loader2 className="animate-spin" size={20} />
                             ) : (
                                 <>
-                                    {isLogin ? 'Login' : 'Create Account'} <ArrowRight size={18} />
+                                    {isLogin ? 'Login' : 'Continue'} <ArrowRight size={18} />
                                 </>
                             )}
+                        </button>
+                    </form>
+                )}
+
+                {/* Name Step (for signup only) */}
+                {step === 'name' && (
+                    <form onSubmit={handleCompleteRegistration} className="w-full space-y-4">
+                        <div className="w-full">
+                            <label className="text-sm font-medium text-gray-700 mb-1 block">Full Name</label>
+                            <div className="relative">
+                                <User className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                                <input
+                                    type="text"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                    placeholder="Enter your full name"
+                                    className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg outline-primary"
+                                    required
+                                    autoFocus
+                                />
+                            </div>
+                            <p className="text-xs text-gray-400 mt-1">This name will be displayed on your bookings</p>
+                        </div>
+
+                        <button
+                            type="submit"
+                            disabled={loading || !name.trim()}
+                            className="w-full py-2.5 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                        >
+                            {loading ? (
+                                <Loader2 className="animate-spin" size={20} />
+                            ) : (
+                                <>
+                                    Create Account <ArrowRight size={18} />
+                                </>
+                            )}
+                        </button>
+
+                        <button
+                            type="button"
+                            onClick={() => setStep('otp')}
+                            className="w-full text-sm text-gray-500 hover:text-primary"
+                        >
+                            ← Back
                         </button>
                     </form>
                 )}
