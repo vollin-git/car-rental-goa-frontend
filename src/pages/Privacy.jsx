@@ -16,7 +16,7 @@ const Privacy = () => {
                         <section className="mb-8">
                             <h2 className="text-xl font-semibold text-gray-800 mb-4">1. Introduction</h2>
                             <p className="text-gray-600 mb-4">
-                                Car Rental Goa ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our car rental platform.
+                                SelfCruz ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our car rental platform.
                             </p>
                         </section>
 
@@ -124,8 +124,8 @@ const Privacy = () => {
                                 If you have questions about this Privacy Policy, please contact us at:
                             </p>
                             <ul className="list-none text-gray-600 mt-2">
-                                <li>Email: privacy@carrentalgoa.com</li>
-                                <li>Phone: +91 XXXX XXXXXX</li>
+                                <li>Email: support@selfcruz.com</li>
+                                <li>Phone: +91 8484958580</li>
                                 <li>Address: Goa, India</li>
                             </ul>
                         </section>
