@@ -25,6 +25,7 @@ import AdminLocations from './pages/admin/AdminLocations'
 import Terms from './pages/Terms'
 import Privacy from './pages/Privacy'
 import PaymentSuccess from './pages/PaymentSuccess'
+import LocationCars from './pages/LocationCars'
 
 const App = () => {
 
@@ -44,6 +45,9 @@ const App = () => {
       <Route path='/host' element={<HostLanding/>}/>
       <Route path='/car-details/:id' element={<CarDetails/>}/>
       <Route path='/cars' element={<Cars/>}/>
+      <Route path='/goa-dabolim-airport-car-rental' element={<LocationCars/>}/>
+      <Route path='/car-rental-vasco-da-gama' element={<LocationCars/>}/>
+      <Route path='/car-rental-vasco-railway-station' element={<LocationCars/>}/>
       <Route path='/my-bookings' element={<MyBookings/>}/>
       <Route path='/terms' element={<Terms/>}/>
       <Route path='/privacy' element={<Privacy/>}/>

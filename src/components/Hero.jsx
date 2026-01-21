@@ -14,8 +14,8 @@ const heroVideos = [
 
 const TRANSITION_DURATION = 8000;
 
-const Hero = () => {
-  const [pickupLocation, setPickupLocation] = useState("");
+const Hero = ({ prefilledLocation = "" }) => {
+  const [pickupLocation, setPickupLocation] = useState(prefilledLocation);
   const [selectedLocation, setSelectedLocation] = useState("");
   const [isSticky, setIsSticky] = useState(false);
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
@@ -59,6 +59,13 @@ const Hero = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Update pickupLocation when prefilledLocation changes
+  useEffect(() => {
+    if (prefilledLocation) {
+      setPickupLocation(prefilledLocation);
+    }
+  }, [prefilledLocation]);
 
   const handleSearch = (e) => {
     e.preventDefault();

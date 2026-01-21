@@ -80,6 +80,15 @@ const Footer = () => {
                 className='grid grid-cols-2 md:grid-cols-4 gap-8 flex-1'>
 
                 {/* Thar for Rent */}
+                 {/* SEO Location Pages */}
+                <div>
+                    <h2 className='text-base font-medium text-gray-800'> Popular Locations</h2>
+                    <ul className='mt-3 flex flex-col gap-1.5 text-xs'>
+                        <li><Link to="/goa-dabolim-airport-car-rental" className='hover:text-primary transition-colors'>Goa Dabolim Airport Car Rental</Link></li>
+                        <li><Link to="/car-rental-vasco-da-gama" className='hover:text-primary transition-colors'>Car Rental Vasco da Gama</Link></li>
+                        <li><Link to="/car-rental-vasco-railway-station" className='hover:text-primary transition-colors'>Car Rental Vasco Railway Station</Link></li>
+                    </ul>
+                </div>
                 <div>
                     <h2 className='text-base font-medium text-gray-800'>Thar for Rent in Goa</h2>
                     <ul className='mt-3 flex flex-col gap-1.5 text-xs'>
@@ -117,6 +126,8 @@ const Footer = () => {
                         <li><Link to="/cars?search=thar&location=madgaon" className='hover:text-primary transition-colors'>Thar on Rent near Madgaon Railway Station</Link></li>
                     </ul>
                 </div>
+
+               
 
                 {/* Quick Links & Resources */}
                 <div>
