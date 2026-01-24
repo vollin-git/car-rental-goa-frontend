@@ -8,48 +8,64 @@ import {
   Shield, 
   Info, 
   Car, 
-  Fuel, 
-  AlertTriangle 
+  AlertTriangle,
+  Search,
+  MousePointerClick,
+  CalendarCheck,
+  Key
 } from 'lucide-react'
 
 const LocationCars = () => {
   const currentPath = useLocation().pathname
   const slug = currentPath.substring(1)
 
+  // --- HELPER FOR "HOW IT WORKS" SECTION (DRY PRINCIPLE) ---
+  const getHowItWorksSection = (locationName) => ({
+    title: 'How SelfCruz Works ',
+    content: `SelfCruz is a car rental discovery marketplace designed for travelers visiting Goa. We help you find self-drive cars from trusted local rental partners across Goa. We do not own or operate vehicles directly. Instead, we connect customers with verified local car rental hosts across Goa, including ${locationName} and nearby transit hubs so you get better prices, more choice, and local support wherever you’re picking up your car.`,
+    steps: [
+      { step: '1', title: 'Search by Location', text: 'Enter your pickup location and travel dates to view cars available from trusted local hosts in that area.', icon: <Search className="w-5 h-5 text-white" /> },
+      { step: '2', title: 'Compare & Choose', text: 'Browse multiple self-drive car options, compare pricing, vehicle type, transmission, and host ratings before selecting the best fit.', icon: <MousePointerClick className="w-5 h-5 text-white" /> },
+      { step: '3', title: 'Secure Booking', text: 'Once you confirm, your booking request is shared with the selected host. You receive clear pickup instructions and contact details.', icon: <CalendarCheck className="w-5 h-5 text-white" /> },
+      { step: '4', title: 'Pickup & Drive', text: 'Meet the host at the agreed pickup point, complete a quick verification, and start your journey.', icon: <Key className="w-5 h-5 text-white" /> },
+      { step: '5', title: 'Support', text: 'SelfCruz provides platform-level assistance and escalation support to ensure a smooth rental experience.', icon: <Shield className="w-5 h-5 text-white" /> }
+    ],
+  })
+
   // --- EXPERT SEO CONTENT CONFIGURATION ---
   const locationConfig = {
     'goa-dabolim-airport-car-rental': {
       h1: 'Car Rental at Goa Dabolim Airport',
       location: 'Dabolim International Airport (GOI)',
-      intro: `Landing in Goa and looking for the ultimate freedom? SelfCruz provides the best car rental in Goa Dabolim Airport, ensuring your vacation starts the moment you exit the terminal. We eliminate the hassle waiting for shuttle buses. Whether you are a solo backpacker needing a compact car or a large family requiring a 7-seater, our fleet of self drive cars in Dabolim is ready for immediate handover.`,
+      intro: `Looking for a car rental in Goa Dabolim Airport? SelfCruz offers a premium yet affordable selection of vehicles perfectly suited for families, couples, and solo travelers. Whether you need an affordable car rental at Dabolim Airport for a budget trip or a luxury SUV, we ensure a seamless handover after your arrival. We are the top choice for travelers seeking goa airport self drive cars.`,      
       sections: [
         {
           title: 'Affordable Self Drive Cars at Dabolim Airport',
-          content: `Travelers often worry about high airport surcharges. At SelfCruz, we offer affordable car rental at Dabolim Airport with transparent, flat-rate pricing. Our diverse fleet caters to every budget. From fuel-efficient hatchbacks like the Maruti Swift to premium sedans and rugged SUVs like the Thar or Creta, we have it all. If you are searching for "cheap car rental Goa airport," our economy range offers the lowest cost-per-kilometer value in the state.`,
+          content: `At SelfCruz, we offer affordable car rental at Dabolim Airport with transparent, flat-rate pricing. Our diverse fleet caters to every budget, from fuel-efficient hatchbacks like the Maruti Swift to premium SUVs like the Thar.`,
           list: [
             'Economy: Alto, Kwid (Best for couples on a budget)',
             'Comfort: Baleno, i20 (Great for small families)',
-            'SUV: Creta, Thar, Innova (Ideal for groups and rough roads)',
-            'Luxury: Automatic transmission options available'
+            'SUV: Creta, Thar, Innova (Ideal for groups)'
           ]
         },
-        {
-          title: 'Seamless Airport Pickup & Drop Process',
-          content: `We have streamlined the process for goa airport self drive cars. Unlike off-site rental agencies that require a shuttle ride, we arrange delivery as close to the arrival gate as permitted.`,
-          steps: [
-            { step: '1', text: 'Book online before you fly to lock in the best rates.' },
-            { step: '2', text: 'Share your flight details so we can track delays.' },
-            { step: '3', text: 'Contact with our Host after arrival' },
-            { step: '4', text: 'Meet our executive at the airport pickup zone.' }
-          ]
-        },
+        // INJECTED "HOW IT WORKS"
+        getHowItWorksSection('Dabolim Airport'),
         {
           title: 'Why Choose SelfCruz for Goa Airport Car Rental',
-          content: `Reliability is our hallmark. We offer 24/7 roadside assistance and well-maintained vehicles. For tourists asking "is it safe to rent a car at Goa airport?", SelfCruz provides fully insured vehicles with All India Permits.`,
+          content: `Reliability is a key when landing in a new city. 24/7 assistance and well-maintained vehicles by our rental partners. For tourists asking "is it safe to rent a car at Goa airport?", SelfCruz provides fully insured vehicles from verified rental partners.`,
           features: [
-             { title: 'No Hidden Charges', desc: 'Pricing includes taxes and insurance' },
-             { title: 'Hygiene Promise', desc: 'Interiors sanitized before every trip' },
+             { title: 'Instant Pickup', desc: 'Car delivered to you at mentioned pickup point' },
+             { title: 'No Hidden Costs', desc: 'What you see is what you pay' },
              { title: '24/7 Support', desc: 'Instant help if you face a breakdown' }
+          ]
+        },
+        {
+          title: 'Popular Routes from Dabolim Airport',
+          content: `Dabolim is centrally located, making it the perfect starting point.`,
+          list: [
+            'Dabolim to Calangute/Baga: ~45 km (1 hour drive)',
+            'Dabolim to Palolem (South Goa): ~60 km (1.5 hours)',
+            'Dabolim to Panaji: ~30 km (40 mins)'
           ]
         },
         {
@@ -61,23 +77,14 @@ const LocationCars = () => {
             'Alcohol: Do not drink and drive. Police checks are frequent near tourist hubs.',
             'Fuel Policy: Cars are provided with a minimal fuel level; return with the same.'
           ]
-        },
-        {
-          title: 'Popular Routes from Dabolim Airport',
-          content: `Dabolim acts as the central hub for Goa.`,
-          list: [
-            'Dabolim → Calangute/Baga (North Goa): 40km | ~60 mins via NH66',
-            'Dabolim → Palolem/Agonda (South Goa): 60km | ~90 mins via scenic coastal road',
-            'Dabolim → Panjim (Capital): 28km | ~40 mins via Atal Setu Bridge'
-          ]
         }
       ],
       faqs: [
-        { q: 'What is the best car rental in Goa Dabolim Airport?', a: 'SelfCruz is top-rated for vehicle condition and customer support. We prioritize safety and transparency over quick profits.' },
+        { q: 'What is the best car rental in Goa Dabolim Airport?', a: 'SelfCruz is top-rated for transparency. As a marketplace, we aggregate the best hosts to ensure high service quality.' },
         { q: 'Can I rent a car at Dabolim Airport without a credit card?', a: 'Yes, we accept debit cards and UPI for payments. A small refundable security deposit may be applicable.' },
         { q: 'Do you offer automatic cars for self drive at the airport?', a: 'Absolutely. We have automatic hatchbacks and SUVs perfect for relaxed driving in traffic.' },
-        { q: 'What happens if my flight is delayed late at night?', a: 'Our team monitors flight statuses. For late-night arrivals (11 PM - 6 AM), a small night delivery charge may apply.' },
-        { q: 'Are fuel costs included in the rental?', a: 'No, fuel is borne by the user. We follow a "pickup-to-drop" fuel policy (return the car with the same fuel level).' }
+        { q: 'What happens if my flight is delayed late at night?', a: 'Our team monitors flight statuses. For late-night arrivals, we coordinate with the host to ensure delivery.' },
+        { q: 'Are fuel costs included in the rental?', a: 'No, fuel is borne by the user. We follow a "pickup-to-drop" fuel policy.' }
       ],
       relatedLinks: [
         { title: 'Car Rental in Vasco da Gama', href: '/car-rental-vasco-da-gama' },
@@ -88,24 +95,35 @@ const LocationCars = () => {
     'car-rental-vasco-da-gama': {
       h1: 'Car Rental in Vasco da Gama',
       location: 'Vasco Da Gama',
-      intro: `Discover the historic port city of Vasco da Gama on your own terms. SelfCruz offers the most reliable self drive cars in Vasco, perfect for business travelers visiting the port or tourists exploring nearby hidden gems like Bogmalo and Hollant Beach. Why depend on erratic public transport when you can have an affordable car rental Vasco delivered right to your hotel or guest house?`,
+      intro: `Discover the historic port city of Vasco da Gama on your own terms. SelfCruz offers the most reliable self drive cars in Vasco, perfect for business travelers visiting the port or tourists exploring nearby hidden gems like Bogmalo Beach.`,
       sections: [
         {
           title: 'Select the Right Vehicle for Vasco City Driving',
-          content: `Vasco has a mix of wide avenues and busy market streets. Choosing the right car enhances your experience. We are the leaders in "best car rental in Vasco Goa" because of our versatile fleet.`,
+          content: `Vasco has a mix of wide avenues and busy market streets. Choosing the right car enhances your experience.Our affordable car rental Vasco fleet includes compact cars perfect for narrow city streets and sturdy SUVs for longer trips out of town`,
           list: [
-            'Compact Hatchbacks (Celerio, Swift): Easiest to park near the Vasco Market or Railway area.',
-            'Sedans (Dzire, Etios): Perfect for business meetings at the Mormugao Port Trust (MPT).',
-            'SUVs (Thar, Scorpio): Ideal if you plan to drive from Vasco to waterfalls or distant beaches.'
+            'Compact Hatchbacks: Easiest to park near the Vasco Market.',
+            'Sedans: Perfect for business meetings at the Mormugao Port Trust.',
+            'SUVs: Ideal if you plan to drive from Vasco to distant beaches.'
+          ]
+        },
+        // INJECTED "HOW IT WORKS"
+        getHowItWorksSection('Vasco da Gama'),
+        {
+          title: 'Affordable Car Rental Vasco: Pricing & Plans',
+          content: `We offer flexible packages tailored to your needs. Whether you need a car for a few hours to run errands or for a week-long vacation, our self drive cars in Vasco come with transparent pricing.`,
+          features: [
+             { title: 'Daily Rentals', desc: ' 9am to 9am one rental cycle' },
+             { title: 'Special discounts', desc: 'Special discounts for you during festive season' },
+             { title: 'Zero Maintenance', desc: 'Our verified rental partners handle all service costs' }
           ]
         },
         {
-          title: 'Affordable Car Rental Vasco: Pricing & Plans',
-          content: `We offer flexible packages tailored to your needs. Whether you need a car for a few hours to run errands or for a week-long vacation, our self drive cars in Vasco come with unlimited kilometer options on select models.`,
-          features: [
-             { title: 'Hourly Rentals', desc: 'Pay only for the time you use' },
-             { title: 'Long Term', desc: 'Special discounts for 7+ day bookings' },
-             { title: 'Zero Maintenance', desc: 'We handle all service costs' }
+          title: 'Popular Routes from Vasco da Gama',
+          content: `Vasco is strategically placed between the airport and the harbor.`,
+          list: [
+            'Vasco to Bogmalo Beach: ~5 km (15 mins)',
+            'Vasco to Colva Beach: ~25 km (45 mins)',
+            'Vasco to Old Goa Churches: ~28 km (45 mins)'
           ]
         },
         {
@@ -116,22 +134,14 @@ const LocationCars = () => {
             'One-Ways: Be aware of one-way streets near the Swatantra Path.',
             'Traffic: Peak hours (9 AM - 11 AM) can be busy near the Port entrance.'
           ]
-        },
-        {
-          title: 'Popular Routes from Vasco da Gama',
-          content: `Vasco is your gateway to both the airport and the beach.`,
-          list: [
-            'Vasco → Bogmalo Beach: 5km | ~10 mins (Great for sunset)',
-            'Vasco → Japanese Garden: 3km | ~10 mins (Scenic view of the harbor)',
-            'Vasco → Old Goa Churches: 25km | ~40 mins'
-          ]
         }
       ],
+
       faqs: [
-        { q: 'Where can I pick up self drive cars in Vasco?', a: 'We offer pickup points near the KTC Bus Stand, Railway Station, and city center hotels.' },
+        { q: 'Where can I pick up self drive cars in Vasco?', a: 'We offer pickup points near the KTC Bus Stand, Railway Station, and city center .' },
         { q: 'Is it hard to find parking in Vasco?', a: 'Parking is generally available, but we recommend using paid parking lots for safety near the market areas.' },
         { q: 'Can I book a car in Vasco and drop it at Goa Airport?', a: 'Yes, we specialize in one-way rentals. You can pick up in Vasco city and drop off at Dabolim Airport.' },
-        { q: 'What documents are required for locals?', a: 'Locals need a valid driving license and Aadhar card. No distinct rules for locals vs tourists.' },
+        { q: 'What documents are required?', a: 'A valid driving license and an original ID proof (Aadhar/Voter ID).' },
         { q: 'Do you provide car accessories?', a: 'Phone mounts and charging cables are included in most premium vehicles.' }
       ],
       relatedLinks: [
@@ -143,17 +153,19 @@ const LocationCars = () => {
     'car-rental-vasco-railway-station': {
       h1: 'Car Rental Near Vasco Railway Station',
       location: 'Vasco Railway Station',
-      intro: `Arriving in Goa by train? Make your journey seamless with a self drive car Vasco Railway Station pickup. SelfCruz ensures that a sanitized, fully-fueled car is waiting for you as you step off the platform. Avoid the chaos of auto-rickshaw bargaining and start your holiday immediately. We are the premier choice for car hire near Vasco Station for passengers on the Goa Express and Vasco Da Gama Express.`,
+      intro: `Arriving in Goa by train? Choose a self drive car Vasco Railway Station pickup and drive off the moment you step out of the platform. SelfCruz offers the most convenient car hire near Vasco Station, serving travelers arriving on the Goa Express, Vasco Da Gama Express, and other major trains.`,
       sections: [
         {
           title: 'Why Rent Immediately at the Station?',
-          content: `Vasco Station (VSG) is the terminus for many major trains. It is located about 30km from Panjim and 45 mins from major beaches. Taking a taxi can cost upwards of ₹1500. Renting a self-drive car is not only cheaper but gives you mobility for your entire trip.`,
+          content: `Vasco Station (VSG) is the terminus for many major trains. Renting a self-drive car is cheaper and gives you mobility for your entire trip.`,
           list: [
             'Cost Effective: Save on the expensive transfer to your hotel.',
             'Convenience: Load your luggage once into your rental car.',
             'Freedom: Stop for food or sightseeing on the way to your hotel.'
           ]
         },
+        // INJECTED "HOW IT WORKS"
+        getHowItWorksSection('Vasco Railway Station'),
         {
           title: 'Our Fleet for Railway Passengers',
           content: `We understand train travel often involves heavy luggage. Our fleet at the station is curated for comfort.`,
@@ -164,30 +176,30 @@ const LocationCars = () => {
           ]
         },
         {
+          title: 'Popular Routes from Vasco Station',
+          content: `Start your journey directly from the railhead.`,
+          list: [
+            'Station to Panjim: ~30 km (45 mins)',
+            'Station to South Goa (Majorda/Betalbatim): ~20 km (30 mins)',
+            'Station to Dudhsagar Waterfalls: ~60 km (1.5 hours)'
+          ]
+        },
+        {
           title: 'Train Delay & Pickup Protocols',
           content: `Trains to Goa can often be delayed. We track your PNR status.`,
           tips: [
             'Delay Buffer: We hold your booking for 2 hours post scheduled arrival if delayed.',
-            'Meeting Point: Our executive meets you at the main exit with a placard.',
+            'Meeting Point: Our executive meets you at the designated spot.',
             'Night Arrivals: We operate 24/7, so early morning train arrivals are no problem.'
           ]
-        },
-        {
-          title: 'Popular Routes from Vasco Station',
-          content: `Start your adventure directly from the railhead.`,
-          list: [
-            'Station → Colva/Benaulim (South Goa Hub): 25km | ~40 mins',
-            'Station → Panjim/Miramar: 30km | ~45 mins',
-            'Station → Dudhsagar Waterfalls: 60km | ~1.5 hours'
-          ]
-        }
+        }   
       ],
       faqs: [
-        { q: 'How do I find my car at Vasco Railway Station?', a: 'Our executive will contact you 30 minutes before arrival and meet you at the main exit parking area.' },
+        { q: 'How do I find my car at Vasco Railway Station?', a: 'Our executive will contact you 30 minutes before arrival and meet you at the designated spot.' },
         { q: 'Is there a cancellation fee if my train is cancelled?', a: 'We offer free cancellation up to 24 hours before booking. For train cancellations, proof may be required for a full refund.' },
         { q: 'Can I get a self drive car Vasco Railway Station with a carrier?', a: 'Yes, select SUVs like the Innova come with roof carriers for extra luggage. Request this in advance.' },
         { q: 'Is the road from Vasco Station to North Goa good?', a: 'Yes, the NH66 highway is excellent. It takes about 1 hour to reach Baga/Calangute from the station.' },
-        { q: 'Do I need an International Driving Permit (IDP)?', a: 'International tourists need a valid IDP along with their original license. Indian tourists just need a valid DL.' }
+        { q: 'Do I need an International Driving Permit (IDP)?', a: 'International tourists need a valid IDP along with their original license.' }
       ],
       relatedLinks: [
         { title: 'Goa Dabolim Airport Car Rental', href: '/goa-dabolim-airport-car-rental' },
@@ -219,12 +231,10 @@ const LocationCars = () => {
       >
         <div className='max-w-5xl mx-auto'>
           
-          {/* SEO Header */}
           <h1 className='text-4xl md:text-5xl font-extrabold text-gray-900 mb-8 leading-tight'>
             {locationData.h1}
           </h1>
 
-          {/* Intro */}
           <div className='bg-blue-50 border-l-4 border-blue-600 p-6 rounded-r-lg mb-12'>
              <p className='text-lg md:text-xl text-gray-800 leading-relaxed'>
                {locationData.intro}
@@ -235,19 +245,46 @@ const LocationCars = () => {
             {locationData.sections.map((section, index) => (
               <section key={index} className="relative">
                 <h2 className='text-2xl md:text-3xl font-bold text-gray-800 mb-6 flex items-center gap-2'>
-                  {/* Decorative Icon based on section index to add visual flair */}
-                  {index === 0 && <Car className="text-blue-600" />}
-                  {index === 1 && <Info className="text-blue-600" />}
-                  {index === 2 && <Shield className="text-blue-600" />}
-                  {index === 3 && <MapPin className="text-blue-600" />}
+                  {section.title.includes('How SelfCruz Works') ? <Shield className="text-green-600" /> : <Car className="text-blue-600" />}
                   {section.title}
                 </h2>
                 
-                <p className='text-gray-700 leading-relaxed mb-6 text-lg'>
+                <p className='text-gray-700 leading-relaxed mb-8 text-lg'>
                   {section.content}
                 </p>
 
-                {/* Render Features Grid */}
+                {/* --- RENDER STEPS (Modified for How It Works) --- */}
+                {section.steps && (
+                  <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-8'>
+                    {section.steps.map((item, sIndex) => (
+                      <div key={sIndex} className='flex flex-col items-center text-center p-4 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-all'>
+                        <div className='w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold mb-3 shadow-sm'>
+                          {item.icon ? item.icon : item.step}
+                        </div>
+                        {item.title && <h4 className="font-bold text-gray-900 mb-1 text-sm">{item.title}</h4>}
+                        <p className='text-xs text-gray-600 leading-snug'>{item.text}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* --- RENDER DISCLAIMER / TRUST BOX (New) --- */}
+                {section.disclaimer && (
+                  <div className='bg-green-50 border border-green-200 rounded-xl p-6 mt-6'>
+                    <div className="mb-3">
+                      <h4 className='font-bold text-green-800 mb-1'>{section.disclaimer.title}</h4>
+                      <p className='text-green-900 text-sm leading-relaxed'>{section.disclaimer.text}</p>
+                    </div>
+                    <div className='flex gap-3 items-start bg-white/60 p-3 rounded-lg border border-green-100'>
+                      <span className='text-lg'>📌</span>
+                      <p className='text-xs text-gray-600 italic font-medium leading-relaxed'>
+                        {section.disclaimer.note}
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {/* --- RENDER FEATURES GRID --- */}
                 {section.features && (
                   <div className='grid md:grid-cols-3 gap-6 mb-6'>
                     {section.features.map((feature, fIndex) => (
@@ -262,21 +299,7 @@ const LocationCars = () => {
                   </div>
                 )}
 
-                {/* Render Steps (Process) */}
-                {section.steps && (
-                  <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6'>
-                    {section.steps.map((item, sIndex) => (
-                      <div key={sIndex} className='flex flex-col items-center text-center p-4 bg-gray-50 rounded-lg'>
-                        <div className='w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold mb-3'>
-                          {item.step}
-                        </div>
-                        <p className='text-sm font-medium text-gray-800'>{item.text}</p>
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {/* Render Tips Box (High value for SEO) */}
+                {/* --- RENDER TIPS BOX --- */}
                 {section.tips && (
                   <div className='bg-yellow-50 border border-yellow-200 rounded-xl p-6'>
                     <div className='flex items-center gap-2 mb-4 text-yellow-800 font-semibold'>
@@ -294,7 +317,7 @@ const LocationCars = () => {
                   </div>
                 )}
 
-                {/* Render Standard Lists */}
+                {/* --- RENDER STANDARD LISTS --- */}
                 {section.list && (
                   <ul className='grid md:grid-cols-2 gap-3 mb-4'>
                     {section.list.map((item, lIndex) => (
@@ -310,12 +333,12 @@ const LocationCars = () => {
           </div>
 
           {/* CTA Section */}
-          <div className="my-16 bg-blue-600 rounded-2xl p-8 md:p-12 text-center text-white">
+          <div className="my-16 bg-blue-600 rounded-2xl p-8 md:p-12 text-center text-white shadow-xl">
             <h2 className="text-3xl font-bold mb-4">Ready to start your journey?</h2>
             <p className="text-blue-100 mb-8 max-w-2xl mx-auto">Book your self drive car now at {locationData.location} and get the best rates with zero hidden fees.</p>
             <button 
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="bg-white text-blue-700 px-8 py-3 rounded-full font-bold hover:bg-gray-100 transition-colors"
+              className="bg-white text-blue-700 px-8 py-3 rounded-full font-bold hover:bg-gray-100 transition-colors shadow-md"
             >
               Check Availability
             </button>

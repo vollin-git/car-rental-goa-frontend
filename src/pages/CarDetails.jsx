@@ -4,7 +4,7 @@ import { assets } from "../assets/assets";
 import Loader from "../components/Loader";
 import { useAppContext } from "../context/AppContext";
 import toast from "react-hot-toast";
-import{ motion} from "motion/react";
+import { motion } from "motion/react";
 
 const CarDetails = () => {
   const { id } = useParams();
@@ -31,7 +31,6 @@ const CarDetails = () => {
     const fetchAvailableCoupons = async () => {
       try {
         const { data } = await axios.get("/api/user/coupons/active");
-        console.log("Coupons API response:", data);
         if (data.success && data.coupons) {
           setAvailableCoupons(data.coupons);
         }
@@ -267,7 +266,7 @@ const CarDetails = () => {
         onClick={() => navigate(-1)}
         className="flex items-center gap-2 mb-6 text-gray-500 cursor-pointer hover:text-gray-800 transition-colors"
       >
-        <img src={assets.arrow_icon} alt="" className="rotate-180 opacity-65" />
+        <img src={assets.arrow_icon} alt="Back" className="rotate-180 opacity-65" />
         Back to all cars
       </button>
 
@@ -286,7 +285,7 @@ const CarDetails = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
             src={activeImage}
-            alt="Car Main"
+            alt={`${car.brand} ${car.model} Main View`}
             className="w-full h-auto md:max-h-100 object-cover rounded-xl mb-4 shadow-md bg-gray-100"
           />
 
@@ -297,7 +296,7 @@ const CarDetails = () => {
                 <img
                   key={index}
                   src={img}
-                  alt={`Thumbnail ${index}`}
+                  alt={`${car.brand} ${car.model} View ${index + 1}`}
                   onClick={() => setActiveImage(img)}
                   className={`w-20 h-20 md:w-24 md:h-24 object-cover rounded-lg cursor-pointer border-2 transition-all
                         ${activeImage === img ? "border-primary scale-105" : "border-transparent opacity-70 hover:opacity-100"}`}
@@ -337,7 +336,7 @@ const CarDetails = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4 }}
                   key={text}
-                  className="flex flex-col items-center bg-light p-4 rounded-lg"
+                  className="flex flex-col items-center bg-gray-50 p-4 rounded-lg"
                 >
                   <img src={icon} alt="" className="h-5 mb-2" />
                   {text}
@@ -347,13 +346,13 @@ const CarDetails = () => {
 
             {/* Description */}
             <div>
-              <h1 className="text-xl font-medium mb-3">Description</h1>
+              <h2 className="text-xl font-medium mb-3">Description</h2>
               <p className="text-gray-500 leading-relaxed">{car.description}</p>
             </div>
 
             {/* Features */}
             <div>
-              <h1 className="text-xl font-medium mb-3">Features</h1>
+              <h2 className="text-xl font-medium mb-3">Features</h2>
               <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {[
                   "360 Camera",
@@ -580,7 +579,7 @@ const CarDetails = () => {
           {/* Notice */}
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
             <p className="text-xs text-blue-700">
-              📍 <strong>Note:</strong> Pickup & return time will be coordinated after booking confirmation.
+              📍 <strong>Note:</strong> Pickup/Return time and place will be coordinated after booking confirmation.
             </p>
           </div>
 
@@ -604,9 +603,25 @@ const CarDetails = () => {
             </ul>
           </div>
 
-          <p className="text-center text-sm text-gray-400">
-            No credit card required to reserve
-          </p>
+          {/* Damage Policy (New Section) */}
+          <div className="bg-red-50 border border-red-200 rounded-lg p-3 space-y-2">
+            <p className="font-medium text-sm text-gray-800">Damage Policy</p>
+            <ul className="text-xs text-gray-600 space-y-1">
+              <li>• Vehicle insurance is provided solely by Rental Partners</li>
+              <li>• Users must inspect vehicles before acceptance</li>
+              <li>• Damage or insurance disputes are resolved directly between User and Rental Partner</li>
+              <li>• SelfCruz acts only as a facilitation and communication platform and does not adjudicate claims.</li>
+
+
+            </ul>
+          </div>
+
+          <div className="flex items-center justify-center gap-2 text-sm text-gray-500">
+            <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            </svg>
+            Pay securely using Razorpay
+          </div>
         </motion.form>
       </div>
     </div>

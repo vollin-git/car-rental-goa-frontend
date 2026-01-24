@@ -125,9 +125,7 @@ const Footer = () => {
                         <li><Link to="/cars" className='hover:text-primary transition-colors'>Self-Drive Cars near Railway Stations</Link></li>
                         <li><Link to="/cars?search=thar&location=madgaon" className='hover:text-primary transition-colors'>Thar on Rent near Madgaon Railway Station</Link></li>
                     </ul>
-                </div>
-
-               
+                </div>   
 
                 {/* Quick Links & Resources */}
                 <div>
@@ -152,6 +150,12 @@ const Footer = () => {
                 transition={{ duration: 0.6, delay: 0.6 }}
             className='flex flex-col md:flex-row gap-2 items-center justify-between py-5'>
                 <p>© {new Date().getFullYear()} SelfCruz. All rights reserved.</p>
+                
+                {/* Added Made with Love Section */}
+                <p className='text-xs flex items-center gap-1 font-medium text-gray-400'>
+                    Made with <span className='text-red-500 animate-pulse text-sm'>❤️</span> in Goa
+                </p>
+
                 <ul className='flex items-center gap-4'>
                     <li><Link to="/privacy" className='hover:text-primary transition-colors'>Privacy</Link></li>
                     <li>|</li>
