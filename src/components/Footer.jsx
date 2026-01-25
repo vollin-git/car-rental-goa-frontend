@@ -134,7 +134,7 @@ const Footer = () => {
                         <li><Link to="/" className='hover:text-primary transition-colors'>Home</Link></li>
                         <li><Link to="/cars" className='hover:text-primary transition-colors'>Browse Vehicles</Link></li>
                         <li><Link to="/host" className='hover:text-primary transition-colors'>List Your Vehicle</Link></li>
-                        <li><Link to="/about" className='hover:text-primary transition-colors'>About Us</Link></li>
+                      {/*<li><Link to="/about" className='hover:text-primary transition-colors'>About Us</Link></li> --> */}
                         <li><Link to="/terms" className='hover:text-primary transition-colors'>Terms of Service</Link></li>
                         <li><Link to="/privacy" className='hover:text-primary transition-colors'>Privacy Policy</Link></li>
                         <li><a href="mailto:support@selfcruz.com" className='hover:text-primary transition-colors'>Help Center</a></li>

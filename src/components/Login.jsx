@@ -204,7 +204,7 @@ const Login = () => {
                         </span>
                     </p>
                     <p className="text-gray-400 text-sm mt-1">
-                        {step === 'phone' && 'Enter your phone number to continue'}
+                        {step === 'phone' && 'Enter your whatsapp phone number to continue'}
                         {step === 'otp' && `Enter OTP sent to +91 ${phone}`}
                         {step === 'name' && 'Enter your name to complete signup'}
                     </p>
@@ -214,7 +214,7 @@ const Login = () => {
                 {step === 'phone' && (
                     <form onSubmit={handleSendOTP} className="w-full space-y-4">
                         <div className="w-full">
-                            <label className="text-sm font-medium text-gray-700 mb-1 block">Phone Number</label>
+                            <label className="text-sm font-medium text-gray-700 mb-1 block">WhatsApp Phone Number</label>
                             <div className="flex">
                                 <span className="inline-flex items-center px-3 bg-gray-100 border border-r-0 border-gray-300 rounded-l-lg text-gray-600 text-sm">
                                     +91
