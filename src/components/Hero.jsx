@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { cityList } from "../assets/assets";
 import { useAppContext } from "../context/AppContext";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "framer-motion";
 import { assets } from "../assets/assets";
 import { MapPin, Search, Calendar, Car } from "lucide-react";
 
@@ -14,7 +14,7 @@ const heroVideos = [
 
 const TRANSITION_DURATION = 8000;
 
-const Hero = ({ prefilledLocation = "" }) => {
+const Hero = ({ prefilledLocation = "", hideText = false }) => {
   const [pickupLocation, setPickupLocation] = useState(prefilledLocation);
   const [selectedLocation, setSelectedLocation] = useState("");
   const [isSticky, setIsSticky] = useState(false);
@@ -81,7 +81,6 @@ const Hero = ({ prefilledLocation = "" }) => {
 
   // --- Responsive Search Form Component ---
   const SearchForm = ({ isCompact = false }) => {
-    // Styling classes based on Compact (Sticky) vs Full (Hero)
     const containerClasses = isCompact
       ? "flex items-center gap-2 p-1 md:p-2 bg-white rounded-full border border-gray-200"
       : "flex flex-col md:flex-row items-stretch md:items-center bg-white rounded-2xl md:rounded-full shadow-xl border border-gray-200 p-2 md:p-3 w-full max-w-sm md:max-w-4xl mx-auto";
@@ -94,12 +93,9 @@ const Hero = ({ prefilledLocation = "" }) => {
 
     return (
       <form onSubmit={handleSearch} className={containerClasses}>
-        
-        {/* Location Input */}
-        {/* On mobile sticky: hide inputs, just show button, or show collapsed view */}
         <div className={`${inputGroupClasses} ${isCompact ? "hidden lg:flex" : "flex"}`}>
           <MapPin size={20} className="text-primary shrink-0" />
-          <div className="flex flex-col w-full">
+          <div className="flex flex-col w-full text-left">
             <span className="text-[10px] uppercase tracking-wider text-gray-500 font-bold mb-0.5">Where</span>
             <select
               required
@@ -115,10 +111,9 @@ const Hero = ({ prefilledLocation = "" }) => {
           </div>
         </div>
 
-        {/* From Date */}
         <div className={`${inputGroupClasses} ${isCompact ? "hidden lg:flex" : "flex"}`}>
           <Calendar size={20} className="text-primary shrink-0" />
-          <div className="flex flex-col w-full">
+          <div className="flex flex-col w-full text-left">
              <span className="text-[10px] uppercase tracking-wider text-gray-500 font-bold mb-0.5">From</span>
             <input
               value={pickupDate}
@@ -131,10 +126,9 @@ const Hero = ({ prefilledLocation = "" }) => {
           </div>
         </div>
 
-        {/* Until Date */}
         <div className={`${inputGroupClasses} border-b-0 border-r-0 ${isCompact ? "hidden lg:flex" : "flex"}`}>
           <Calendar size={20} className="text-primary shrink-0" />
-          <div className="flex flex-col w-full">
+          <div className="flex flex-col w-full text-left">
              <span className="text-[10px] uppercase tracking-wider text-gray-500 font-bold mb-0.5">Until</span>
             <input
               value={returnDate}
@@ -147,14 +141,13 @@ const Hero = ({ prefilledLocation = "" }) => {
           </div>
         </div>
 
-        {/* Search Button */}
         <div className={`${isCompact ? "w-auto" : "w-full md:w-auto mt-2 md:mt-0"}`}>
           <button
             type="submit"
             className={`flex items-center justify-center bg-primary hover:bg-primary-dull text-white transition-all shadow-md ${
               isCompact 
-              ? "p-2 rounded-full" // Sticky button (small)
-              : "w-full md:w-auto py-3 md:py-4 px-6 md:px-8 rounded-xl md:rounded-full text-base font-bold gap-2" // Hero button (large)
+              ? "p-2 rounded-full" 
+              : "w-full md:w-auto py-3 md:py-4 px-6 md:px-8 rounded-xl md:rounded-full text-base font-bold gap-2"
             }`}
           >
             <Search size={isCompact ? 18 : 22} />
@@ -174,24 +167,18 @@ const Hero = ({ prefilledLocation = "" }) => {
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
-          {/* Logo */}
           <a href="/" className="flex items-center gap-2 shrink-0">
             <img src={assets.logo} alt="Logo" className="h-8 w-auto" />
           </a>
-          
-          {/* Compact Search (Visible on Scroll) */}
           <div className="flex-1 flex justify-end md:justify-center">
-             {/* On mobile, this just shows a search icon button to save space */}
             <SearchForm isCompact /> 
           </div>
-
-          {/* Optional: Add a hamburger menu here for mobile if needed */}
         </div>
       </div>
 
       <div ref={heroRef} className="relative min-h-[85vh] md:min-h-[70vh] overflow-hidden bg-black">
         
-        {/* --- Background Video Section (Unchanged) --- */}
+        {/* --- Background Video Section --- */}
         <div className="absolute inset-0">
           <video
             ref={currentVideoRef}
@@ -203,7 +190,6 @@ const Hero = ({ prefilledLocation = "" }) => {
             className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
               isTransitioning ? "opacity-0" : "opacity-100"
             }`}
-            poster="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=2070&auto=format&fit=crop"
           >
             <source src={heroVideos[currentVideoIndex]} type="video/mp4" />
           </video>
@@ -224,51 +210,61 @@ const Hero = ({ prefilledLocation = "" }) => {
 
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/60"></div>
         </div>
+          {  /* --- HIDDEN HERO TEXT IN LOCATION PAGES (--- */}
 
         {/* --- Main Content --- */}
-        <div className="relative z-10 flex flex-col items-center justify-center min-h-[85vh] md:min-h-[70vh] px-4 pt-16 md:pt-20 pb-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-8 md:mb-12 max-w-4xl"
-          >
-            {/* <motion.span 
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="inline-block bg-white/10 backdrop-blur-sm text-white text-xs md:text-sm font-semibold px-4 py-1.5 rounded-full mb-4 md:mb-6 border border-white/20"
-            >
-              🚗 Goa's #1 Self-Drive Car Rental Platform
-            </motion.span> */}
-            
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white mb-4 md:mb-6 leading-tight drop-shadow-lg">
-              Your <span className="text-primary">Perfect Ride</span> Awaits in Goa
-            </h1>
-            
-            <p className="text-base md:text-xl text-white/80 font-medium px-4 max-w-2xl mx-auto leading-relaxed">
-              Explore Goa at your own pace with premium self-drive cars from verified local partners
-            </p>
+        <div className={`relative z-10 flex flex-col items-center justify-center min-h-[85vh] md:min-h-[70vh] px-4 pb-10 transition-all duration-500 ${hideText ? 'pt-24 md:pt-32' : 'pt-16 md:pt-20'}`}>
+          
+         {/* Visual Filler Pill for Location Pages */}
+            {/* Visual Filler Pill for Location Pages */}
+{hideText && (
+  <div className="flex justify-center w-full px-4 mb-6 mt-20 md:mt-0">
+    <div className="bg-black/40 backdrop-blur-md border border-white/20 text-white rounded-full px-5 py-2 shadow-xl max-w-full">
+      <p className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-center leading-tight">
+        Self Drive &bull; {prefilledLocation || "Goa"}
+      </p>
+    </div>
+  </div>
+)}
+          <AnimatePresence mode="wait">
+            {!hideText && (
+              <motion.div
+                key="hero-text"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.8 }}
+                className="text-center mb-8 md:mb-12 max-w-4xl"
+              >
+                <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white mb-4 md:mb-6 leading-tight drop-shadow-lg">
+                  Your <span className="text-primary">Perfect Ride</span> Awaits in Goa
+                </h1>
+                
+                <p className="text-base md:text-xl text-white/80 font-medium px-4 max-w-2xl mx-auto leading-relaxed">
+                  Explore Goa at your own pace with premium self-drive cars from verified local partners
+                </p>
 
-            <div className="flex flex-wrap items-center justify-center gap-3 md:gap-6 mt-6 text-white/70 text-xs md:text-sm">
-              <span className="flex items-center gap-1.5">
-                <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-                Instant Booking
-              </span>
-              <span className="hidden md:inline">•</span>
-              <span className="flex items-center gap-1.5">
-                <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-                Transparent Pricing
-              </span>
-              <span className="hidden md:inline">•</span>
-              <span className="flex items-center gap-1.5">
-                <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-                24×7 Support
-              </span>
-            </div>
-          </motion.div>
+                <div className="flex flex-wrap items-center justify-center gap-3 md:gap-6 mt-6 text-white/70 text-xs md:text-sm">
+                  <span className="flex items-center gap-1.5">
+                    <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                    Instant Booking
+                  </span>
+                  <span className="hidden md:inline">•</span>
+                  <span className="flex items-center gap-1.5">
+                    <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                    Transparent Pricing
+                  </span>
+                  <span className="hidden md:inline">•</span>
+                  <span className="flex items-center gap-1.5">
+                    <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                    24×7 Support
+                  </span>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
-          {/* Main Search Form Container */}
+          {/* Search Form */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -278,8 +274,8 @@ const Hero = ({ prefilledLocation = "" }) => {
             <SearchForm />
           </motion.div>
 
-          {/* Quick Location Pills */}
-          {locations.length > 0 && (
+          {/* Quick Location Pills - Only show on Home */}
+          {!hideText && locations.length > 0 && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -317,7 +313,7 @@ const Hero = ({ prefilledLocation = "" }) => {
             </motion.div>
           )}
 
-          {/* Video Indicator Dots (Responsive positioning) */}
+          {/* Video Indicator Dots */}
           {heroVideos.length > 1 && (
             <div className="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-20">
               {heroVideos.map((_, index) => (

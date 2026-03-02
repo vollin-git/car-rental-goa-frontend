@@ -1,168 +1,122 @@
 import React from 'react'
 import { assets } from '../assets/assets'
-import { motion } from 'motion/react';
+import { motion } from 'motion/react'; // Ensure this matches your package (usually 'framer-motion')
 import { Link } from 'react-router-dom';
+import { Mail, Phone, MapPin } from 'lucide-react'; 
 
 const Footer = () => {
   return (
-    <motion.div 
+    <motion.footer 
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-    
-    className='px-6 md:px-16 lg:px-24 xl:px-32 mt-60 text-sm text-gray-500'>
+        className='px-6 md:px-16 lg:px-24 xl:px-32 mt-40 border-t border-gray-100 pt-16 text-sm text-gray-500'
+    >
+      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-10 pb-12 border-b border-gray-100'>
+        
+        {/* Company Info - Spans 2 columns for better layout */}
+        <div className='lg:col-span-2'>
+            <h2 className='text-2xl font-black text-primary tracking-tight'>SelfCruz</h2>
+            <p className='font-bold text-gray-800 mt-2 text-[10px] uppercase tracking-widest'>
+                DRIVAGO TECHNOLOGIES PRIVATE LIMITED
+            </p>
 
-            <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-            
-            className='flex flex-wrap justify-between items-start gap-8 pb-6 border-borderColor border-b'>
-                {/* Company Info */}
-                <div className='max-w-xs'>
-                    <motion.h2 
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        transition={{ duration: 0.5, delay: 0.3 }}
-                        className='text-2xl font-bold text-primary'
-                    >
-                        SelfCruz
-                    </motion.h2>
-                    
-                    <motion.h3
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        transition={{ duration: 0.5, delay: 0.35 }}
-                        className='font-semibold text-gray-800 mt-2 text-xs'
-                    >
-                        DRIVAGO TECHNOLOGIES PRIVATE LIMITED
-                    </motion.h3>
-
-                    <motion.p 
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        transition={{ duration: 0.5, delay: 0.4 }}
-                    className='mt-3 text-xs leading-relaxed'>
-                        H.NO-256 Opposite Rosary Convent, Tiswadi C C Altinho, North Goa 403001, Goa
-                    </motion.p>
-                    
-                    <motion.div 
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        transition={{ duration: 0.5, delay: 0.45 }}
-                    className='mt-3 space-y-1'>
-                        <p><a href="tel:+918484958580" className='hover:text-primary transition-colors'>+91 84849 58580</a></p>
-                        <p><a href="mailto:support@selfcruz.com" className='hover:text-primary transition-colors'>support@selfcruz.com</a></p>
-                    </motion.div>
-
-                    <motion.div 
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        transition={{ duration: 0.5, delay: 0.5 }}
-                    className='flex items-center gap-3 mt-4'>
-                        <a href="https://www.facebook.com/profile.php?id=61586095709762" target="_blank" rel="noopener noreferrer"> 
-                            <img src={assets.facebook_logo} className='w-5 h-5 hover:opacity-70 transition-opacity' alt="Facebook" /> 
-                        </a>
-                        <a href="https://www.instagram.com/selfcruz?igsh=b2JsZHhseXd1ZDlw" target="_blank" rel="noopener noreferrer"> 
-                            <img src={assets.instagram_logo} className='w-5 h-5 hover:opacity-70 transition-opacity' alt="Instagram" /> 
-                        </a>
-                        <a href="mailto:support@selfcruz.com"> 
-                            <img src={assets.gmail_logo} className='w-5 h-5 hover:opacity-70 transition-opacity' alt="Email" /> 
-                        </a>
-                    </motion.div>
-                </div>
-
-                {/* Links Grid */}
-                <motion.div 
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.4 }}
-                className='grid grid-cols-2 md:grid-cols-4 gap-8 flex-1'>
-
-                {/* Thar for Rent */}
-                 {/* SEO Location Pages */}
-                <div>
-                    <h2 className='text-base font-medium text-gray-800'> Popular Locations</h2>
-                    <ul className='mt-3 flex flex-col gap-1.5 text-xs'>
-                        <li><Link to="/goa-dabolim-airport-car-rental" className='hover:text-primary transition-colors'>Goa Dabolim Airport Car Rental</Link></li>
-                        <li><Link to="/car-rental-vasco-da-gama" className='hover:text-primary transition-colors'>Car Rental Vasco da Gama</Link></li>
-                        <li><Link to="/car-rental-vasco-railway-station" className='hover:text-primary transition-colors'>Car Rental Vasco Railway Station</Link></li>
-                    </ul>
-                </div>
-                <div>
-                    <h2 className='text-base font-medium text-gray-800'>Thar for Rent in Goa</h2>
-                    <ul className='mt-3 flex flex-col gap-1.5 text-xs'>
-                        <li><Link to="/cars?search=thar" className='hover:text-primary transition-colors'>Mahindra Thar Self-Drive Goa</Link></li>
-                        <li><Link to="/cars?search=thar&location=north" className='hover:text-primary transition-colors'>Thar on Rent in North Goa</Link></li>
-                        <li><Link to="/cars?search=thar&location=south" className='hover:text-primary transition-colors'>Thar on Rent in South Goa</Link></li>
-                        <li><Link to="/cars?search=thar&location=calangute" className='hover:text-primary transition-colors'>Thar Rental in Calangute</Link></li>
-                        <li><Link to="/cars?search=thar&location=mopa" className='hover:text-primary transition-colors'>Thar Rental near MOPA Airport</Link></li>
-                        <li><Link to="/cars?search=thar&location=dabolim" className='hover:text-primary transition-colors'>Thar Rental near Dabolim Airport</Link></li>
-                        <li><Link to="/cars?search=thar&transmission=automatic" className='hover:text-primary transition-colors'>Automatic Thar for Rent in Goa</Link></li>
-                    </ul>
-                </div>
-
-                {/* Airport Quick Links */}
-                <div>
-                    <h2 className='text-base font-medium text-gray-800'>Airport — Quick Links</h2>
-                    <ul className='mt-3 flex flex-col gap-1.5 text-xs'>
-                        <li><Link to="/cars?location=dabolim" className='hover:text-primary transition-colors'>Car Rentals at Goa Airport (Dabolim)</Link></li>
-                        <li><Link to="/cars?location=dabolim" className='hover:text-primary transition-colors'>Self-Drive Cars near Goa Airport</Link></li>
-                        <li><Link to="/cars?search=thar&location=dabolim" className='hover:text-primary transition-colors'>Thar on Rent at Dabolim Airport</Link></li>
-                        <li><Link to="/cars?location=mopa" className='hover:text-primary transition-colors'>Car Rentals at MOPA Airport</Link></li>
-                        <li><Link to="/cars?location=mopa" className='hover:text-primary transition-colors'>Self-Drive Cars near MOPA Airport</Link></li>
-                        <li><Link to="/cars?search=thar&location=mopa" className='hover:text-primary transition-colors'>Thar on Rent at MOPA Airport</Link></li>
-                    </ul>
-                </div>
-
-                {/* Railway Station Quick Links */}
-                <div>
-                    <h2 className='text-base font-medium text-gray-800'>Railway Station — Quick Links</h2>
-                    <ul className='mt-3 flex flex-col gap-1.5 text-xs'>
-                        <li><Link to="/cars?location=madgaon" className='hover:text-primary transition-colors'>Car Rentals near Madgaon Railway Station</Link></li>
-                        <li><Link to="/cars?location=thivim" className='hover:text-primary transition-colors'>Car Rentals near Thivim Railway Station</Link></li>
-                        <li><Link to="/cars?location=karmali" className='hover:text-primary transition-colors'>Car Rentals near Karmali Railway Station</Link></li>
-                        <li><Link to="/cars" className='hover:text-primary transition-colors'>Self-Drive Cars near Railway Stations</Link></li>
-                        <li><Link to="/cars?search=thar&location=madgaon" className='hover:text-primary transition-colors'>Thar on Rent near Madgaon Railway Station</Link></li>
-                    </ul>
-                </div>   
-
-                {/* Quick Links & Resources */}
-                <div>
-                    <h2 className='text-base font-medium text-gray-800'>Quick Links</h2>
-                    <ul className='mt-3 flex flex-col gap-1.5 text-xs'>
-                        <li><Link to="/" className='hover:text-primary transition-colors'>Home</Link></li>
-                        <li><Link to="/cars" className='hover:text-primary transition-colors'>Browse Vehicles</Link></li>
-                        <li><Link to="/host" className='hover:text-primary transition-colors'>List Your Vehicle</Link></li>
-                      {/*<li><Link to="/about" className='hover:text-primary transition-colors'>About Us</Link></li> --> */}
-                        <li><Link to="/terms" className='hover:text-primary transition-colors'>Terms of Service</Link></li>
-                        <li><Link to="/privacy" className='hover:text-primary transition-colors'>Privacy Policy</Link></li>
-                        <li><a href="mailto:support@selfcruz.com" className='hover:text-primary transition-colors'>Help Center</a></li>
-                    </ul>
-                </div>
-
-                </motion.div>
-            </motion.div>
-            
-            <motion.div 
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.6 }}
-            className='flex flex-col md:flex-row gap-2 items-center justify-between py-5'>
-                <p>© {new Date().getFullYear()} SelfCruz. All rights reserved.</p>
-                
-                {/* Added Made with Love Section */}
-                <p className='text-xs flex items-center gap-1 font-medium text-gray-400'>
-                    Made with <span className='text-red-500 animate-pulse text-sm'>❤️</span> in Goa
+            <div className='mt-5 space-y-3 text-xs leading-relaxed'>
+                <p className='flex items-start gap-2'>
+                    <MapPin size={14} className='text-primary shrink-0 mt-0.5' />
+                    H.NO-256 Opposite Rosary Convent, Altinho, Panaji, Goa 403001
                 </p>
+                <p className='flex items-center gap-2'>
+                    <Phone size={14} className='text-primary shrink-0' />
+                    <a href="tel:+918484958580" className='hover:text-primary transition-colors'>+91 84849 58580</a>
+                </p>
+                <p className='flex items-center gap-2'>
+                    <Mail size={14} className='text-primary shrink-0' />
+                    <a href="mailto:support@selfcruz.com" className='hover:text-primary transition-colors'>support@selfcruz.com</a>
+                </p>
+            </div>
+            
+            {/* Socials */}
+            <div className='flex items-center gap-4 mt-6'>
+                {['facebook', 'instagram', 'gmail'].map((social) => (
+                    <a key={social} href="#" className='p-2 bg-gray-50 rounded-full hover:bg-primary/10 transition-all'>
+                        <img src={assets[`${social}_logo`]} className='w-4 h-4' alt={social} /> 
+                    </a>
+                ))}
+            </div>
+        </div>
 
-                <ul className='flex items-center gap-4'>
-                    <li><Link to="/privacy" className='hover:text-primary transition-colors'>Privacy</Link></li>
-                    <li>|</li>
-                    <li><Link to="/terms" className='hover:text-primary transition-colors'>Terms</Link></li>
-                </ul>
-            </motion.div>
-        </motion.div>
+        {/* Links Columns */}
+        {[
+          {
+            title: "Popular Locations",
+            links: [
+              { name: "Dabolim Airport (GOI)", path: "/goa-dabolim-airport-car-rental" },
+              { name: "Mopa Airport (GOX)", path: "/self-drive-car-rental-at-mopa-airport-goa" },
+              { name: "Vasco da Gama", path: "/car-rental-vasco-da-gama" },
+              { name: "Madgaon Station", path: "/self-drive-car-rental-at-madgaon-railway-station-goa" },
+              
+            ]
+          },
+          {
+            title: "Thar Specialist",
+            links: [
+              { name: "Thar Rental Goa", path: "/thar-on-rent-in-goa" },
+              { name: "Dabolim Airport Thar", path: "/cars?search=thar&location=Dabolim Airport(GOI)" },
+              { name: "Mopa Airport Thar", path: "/cars?search=thar&location=Mopa Airport (GOX)" },
+              { name: "Automatic Thar", path: "/cars?search=thar&transmission=automatic" },
+             
+            ]
+          },
+          {
+            title: "Quick Hubs",
+            links: [
+              { name: "Vasco Station", path: "/car-rental-vasco-railway-station" },
+              { name: "Madgaon Station", path: "/cars?location=Madgaon Railway Station" },
+              { name: "Panjim", path: "/self-drive-car-rentals-at-panjim" },
+              { name: "Karmali Station", path: "/cars?location=Karmali Railway Station" },
+            ]
+          },
+          {
+            title: "Company",
+            links: [
+              { name: "Browse Vehicles", path: "/cars" },
+              { name: "List Your Vehicle", path: "/host" },
+              { name: "Terms of Service", path: "/terms" },
+              { name: "Privacy Policy", path: "/privacy" },
+            ]
+          }
+        ].map((col, idx) => (
+          <div key={idx}>
+            <h3 className='text-gray-900 font-bold mb-4 uppercase text-[11px] tracking-wider'>{col.title}</h3>
+            <ul className='flex flex-col gap-2.5 text-[12px]'>
+              {col.links.map((link, lIdx) => (
+                <li key={lIdx}>
+                  <Link to={link.path} className='hover:text-primary hover:translate-x-1 inline-block transition-all'>
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+
+      </div>
+      
+      {/* Bottom Bar */}
+      <div className='flex flex-col md:flex-row items-center justify-between py-8 gap-4 text-[11px]'>
+          <p>© {new Date().getFullYear()} SelfCruz. All rights reserved.</p>
+          
+          <p className='font-semibold text-gray-400 '>
+              Made with <span className='text-red-500 animate-pulse'>❤️</span> in Goa
+          </p>
+
+          <div className='flex gap-6 uppercase tracking-widest font-bold'>
+              <Link to="/privacy" className='hover:text-primary transition-colors'>Privacy</Link>
+              <Link to="/terms" className='hover:text-primary transition-colors'>Terms</Link>
+          </div>
+      </div>
+    </motion.footer>
   )
 }
 

@@ -32,9 +32,18 @@ const App = () => {
   const {showLogin} = useAppContext()
   const isOwnerPath = useLocation().pathname.startsWith('/owner')
   const isAdminPath = useLocation().pathname.startsWith('/admin')
+  const location = useLocation();
+  // Check if we are NOT on a sub-page (like /mopa or /panjim)
+  const isHome = location.pathname === "/";
 
   return (
     <>
+    {isHome && (
+        <>
+          <title>SelfCruz | Self Drive Car Rental Goa</title>
+          <meta name="description" content="Find and book self-drive cars across Goa. Airport pickup, railway station delivery, hatchbacks to SUVs. Instant booking with verified providers." />
+        </>
+      )}     
      <Toaster />
       {showLogin && <Login/>}
 
@@ -48,6 +57,10 @@ const App = () => {
       <Route path='/goa-dabolim-airport-car-rental' element={<LocationCars/>}/>
       <Route path='/car-rental-vasco-da-gama' element={<LocationCars/>}/>
       <Route path='/car-rental-vasco-railway-station' element={<LocationCars/>}/>
+      <Route path='/self-drive-car-rental-at-mopa-airport-goa' element={<LocationCars/>}/>
+      <Route path='/self-drive-car-rental-at-madgaon-railway-station-goa' element={<LocationCars/>}/>
+      <Route path ='/self-drive-car-rental-at-panjim' element={<LocationCars/>}/>
+      <Route path="/thar-on-rent-in-goa" element={<LocationCars />} />
       <Route path='/my-bookings' element={<MyBookings/>}/>
       <Route path='/terms' element={<Terms/>}/>
       <Route path='/privacy' element={<Privacy/>}/>
