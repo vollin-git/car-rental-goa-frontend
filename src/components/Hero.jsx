@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { cityList } from "../assets/assets";
 import { useAppContext } from "../context/AppContext";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion ,AnimatePresence } from "motion/react"
 import { assets } from "../assets/assets";
 import { MapPin, Search, Calendar, Car } from "lucide-react";
 
