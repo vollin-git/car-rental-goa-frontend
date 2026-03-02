@@ -927,8 +927,8 @@ intro: (
       </div>
     )
   }
-    const url = import.meta.env.VITE_BASE_URL ;
-  const canonicalUrl = `${url}/${slug}`;
+    const baseUrl = "https://www.selfcruz.com";
+  const canonicalUrl = `${baseUrl}${slug}`;
 
   {/* Helper for dynamic schema.org */}
   const isThar = slug.includes('thar');
@@ -949,10 +949,10 @@ intro: (
       // 1. BRAND ENTITY 
       {
         "@type": "AutoRental",
-        "@id": `${url}/#organization`,
+        "@id": `${baseUrl}/#organization`,
         "name": "SelfCruz",
-        "url": url,
-        "logo": `${url}/logo.svg`, 
+        "url": baseUrl,
+        "logo": `${baseUrl}/logo.svg`, 
         "telephone": "+91 84849 58580", // 
         "address": {
           "@type": "PostalAddress",
@@ -972,8 +972,8 @@ intro: (
       {
         "@type": "BreadcrumbList",
         "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "Home", "item": url },
-          { "@type": "ListItem", "position": 2, "name": "All Cars", "item": `${url}/cars` },
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": baseUrl },
+          { "@type": "ListItem", "position": 2, "name": "All Cars", "item": `${baseUrl}/cars` },
           { "@type": "ListItem", "position": 3, "name": locationData.location, "item": canonicalUrl }
         ]
       },
@@ -996,7 +996,7 @@ intro: (
           "lowPrice": "2500",
           "highPrice": "6000",
           "priceCurrency": "INR",
-          "offeredBy": { "@id": `${url}/#organization` }
+          "offeredBy": { "@id": `${baseUrl}/#organization` }
         },
        /* "aggregateRating": {
          "@type": "AggregateRating",
@@ -1024,7 +1024,7 @@ intro: (
           "addressCountry": "IN"
         },
         "priceRange": "INR 1200 - 8000",
-        "provider": { "@id": `${url}/#organization` } // Links this airport page to your Panjim HQ
+        "provider": { "@id": `${baseUrl}/#organization` } // Links this airport page to your Panjim HQ
       },
 
       // 4. FAQ SECTION
@@ -1056,13 +1056,13 @@ intro: (
       <meta property="og:url" content={canonicalUrl} />
       <meta property="og:title" content={locationData.meta.title} />
       <meta property="og:description" content={locationData.meta.description} />
-      <meta property="og:image" content="https://selfcruz.com/assets/og-thar-goa.jpg" /> 
+      <meta property="og:image" content={`${baseUrl}/assets/og-thar-goa.jpg`} /> 
 
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={locationData.meta.title} />
       <meta name="twitter:description" content={locationData.meta.description} />
-      <meta name="twitter:image" content="https://selfcruz.com/assets/og-thar-goa.jpg" />
+      <meta name="twitter:image" content={`${baseUrl}/assets/og-thar-goa.jpg`} />
         <script 
       type="application/ld+json" 
       dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} 
