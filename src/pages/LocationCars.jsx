@@ -927,7 +927,7 @@ intro: (
       </div>
     )
   }
-    baseUrl = 'https://www.selfcruz.com';
+    const baseUrl = "https://www.selfcruz.com";
     // This ensures we don't get // if slug already has a /
     const cleanSlug = slug.startsWith('/') ? slug : `/${slug}`;
     const canonicalUrl = `${baseUrl}${cleanSlug}`
